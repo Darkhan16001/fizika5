@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#edf8ff">
+  <title>Physics Lab — Термодинамика 2.3.4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">⚛</span>
+      <div>
+        <strong>PHYSICS LAB</strong>
+        <small>2.3.4 • Энтропия және термодинамика</small>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="course">ФИЗИКА • 1-КУРС</span>
+      <span class="elapsed">
+        Сабақ таймері
+        <strong id="timer">00:00</strong>
+      </span>
+    </div>
+  </header>
+
+  <main id="screen"></main>
+
+  <footer class="toolbar">
+    <!-- ТӨМЕНГІ ЖАҚТАҒЫ НАҚТЫ УАҚЫТ -->
+    <div class="live-clock">
+      <span>ҚАЗІРГІ УАҚЫТ</span>
+      <strong id="currentTime">--:--:--</strong>
+      <small>Алматы</small>
+    </div>
+
+    <div class="page-progress">
+      <span id="pageNumber">1 / 1</span>
+      <div class="progress">
+        <div id="progressFill"></div>
+      </div>
+    </div>
+
+    <nav class="actions">
+      <button onclick="openAttendance()">👥 Оқушылар</button>
+      <button onclick="openTeams()">🏆 Командалар</button>
+      <button onclick="openPanel('mathPanel')">🧮 Математика</button>
+      <button onclick="openPanel('physicsPanel')">⚙ Физика</button>
+      <button onclick="changePage(-1)">← Артқа</button>
+      <button class="primary" onclick="changePage(1)">Келесі →</button>
+    </nav>
+  </footer>
+</div>
+
+<!-- ҚАТЫСУ ТІЗІМІ -->
+<section id="attendancePanel" class="floating wide hidden">
+  <div class="window-title">
+    <strong>👥 Оқушылардың қатысуы</strong>
+    <button onclick="closePanel('attendancePanel')">✕</button>
+  </div>
+
+  <p class="hint">
+    Сабаққа келгендерді белгілеңіз. Жоқ оқушылар
+    командаға қосылмайды.
+  </p>
+
+  <div class="inline-actions">
+    <button onclick="markAll(true)">Барлығы бар</button>
+    <button onclick="markAll(false)">Барлығы жоқ</button>
+  </div>
+
+  <div id="attendanceList" class="student-list"></div>
+
+  <div class="add-student">
+    <input id="newStudent" maxlength="60"
+           placeholder="Жаңа оқушының есімі">
+    <button onclick="addStudent()">Қосу</button>
+  </div>
+
+  <p id="attendanceCount" class="hint"></p>
+
+  <button class="primary full" onclick="shuffleTeams(true)">
+    🎲 Автоматты 3 командаға бөлу
+  </button>
+</section>
+
+<!-- КОМАНДАЛАР -->
+<section id="teamsPanel" class="floating wide hidden">
+  <div class="window-title">
+    <strong>🏆 Командалар</strong>
+    <button onclick="closePanel('teamsPanel')">✕</button>
+  </div>
+
+  <div id="teamLists"></div>
+
+  <button class="primary full" onclick="shuffleTeams(true)">
+    🎲 Командаларды қайта бөлу
+  </button>
+</section>
+
+<!-- МАТЕМАТИКАЛЫҚ КАЛЬКУЛЯТОР -->
+<section id="mathPanel" class="floating hidden">
+  <div class="window-title">
+    <strong>🧮 Математикалық калькулятор</strong>
+    <button onclick="closePanel('mathPanel')">✕</button>
+  </div>
+
+  <input id="mathDisplay" readonly placeholder="Өрнек">
+  <div id="mathKeys" class="math-keys"></div>
+  <div id="mathResult" class="calc-result">
+    Есептеу нәтижесі
+  </div>
+
+  <p class="hint">Дәрежеге ^, түбірге √ қолданылады.</p>
+</section>
+
+<!-- ФИЗИКАЛЫҚ КАЛЬКУЛЯТОР -->
+<section id="physicsPanel"
+         class="floating physics-panel hidden">
+  <div class="window-title">
+    <strong>⚙ Физикалық калькулятор</strong>
+    <button onclick="closePanel('physicsPanel')">✕</button>
+  </div>
+
+  <label for="formulaSelect">Формула</label>
+  <select id="formulaSelect" onchange="selectFormula()"></select>
+
+  <label for="unknownSelect">Нені табу керек?</label>
+  <select id="unknownSelect" onchange="drawPhysicsFields()"></select>
+
+  <div id="physicsFields"></div>
+
+  <button class="primary full" onclick="calculatePhysics()">
+    Есептеу
+  </button>
+
+  <div id="physicsResult" class="calc-result">
+    Белгілі шамаларды енгізіңіз.
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
